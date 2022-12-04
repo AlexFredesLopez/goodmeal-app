@@ -8,7 +8,7 @@ services:
     volumes:
       - ./API:/var/www
     ports:
-      - 8080:8000
+      - 8081:8000
   db:
     container_name: goodmeal_mysql
     platform: linux/x86_64
@@ -29,10 +29,12 @@ services:
     build:
       context: ./front
       dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
     volumes:
-      - './front:/app'
+      - './front:/app/'
     ports:
-      - '8081:5173'
+      - '8080:5173'
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
