@@ -1,0 +1,250 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "contact": "Alex Fredes",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Api rest para el test de goodmeal"
+        }
+    ],
+    "paths": {
+        "/api/tiendas": {
+            "get": {
+                "operationId": "61f2968f9170470f6148970cfce64ee8",
+                "responses": {
+                    "200": {
+                        "description": "listado de tiendas"
+                    },
+                    "500": {
+                        "description": "error al listar las tiendas"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "d411c2bba9f9cca89805f178e9afa0ec",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "nombre": {
+                                                "type": "string"
+                                            },
+                                            "direccion": {
+                                                "type": "string"
+                                            },
+                                            "telefono": {
+                                                "type": "string"
+                                            },
+                                            "horario_retiro": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "nombre": "example title",
+                                    "direccion": "example content",
+                                    "telefono": "example content",
+                                    "horario_retiro": "example content"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "title"
+                                        },
+                                        "direccion": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "telefono": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "horario_retiro": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "fail"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tiendas/{id}": {
+            "get": {
+                "operationId": "55217e5451adc0278d3fcaec87cfd22f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "title"
+                                        },
+                                        "direccion": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "telefono": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "horario_retiro": {
+                                            "type": "string",
+                                            "example": "content"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ToDo"
+                ],
+                "summary": "Delete Todo",
+                "operationId": "5297f7c92e8973f1a47b73f29927adc3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "nombre": {
+                                                "type": "string"
+                                            },
+                                            "direccion": {
+                                                "type": "string"
+                                            },
+                                            "telefono": {
+                                                "type": "string"
+                                            },
+                                            "horario_retiro": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "nombre": "example title",
+                                    "direccion": "example content",
+                                    "telefono": "example content",
+                                    "horario_retiro": "example content"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "delete todo success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

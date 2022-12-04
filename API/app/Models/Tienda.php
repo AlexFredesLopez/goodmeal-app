@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Tienda extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre',
+        'direccion',
+        'telefono',
+        'horario_retiro'
+    ];
+
+
+    public function products()
+    {
+
+        $this->hasMany(Producto::class);
+    }
 }
