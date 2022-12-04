@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  backend:
+    container_name: goodmeal_backend
+    build:
+      context: ./config/backend
+      dockerfile: Dockerfile
+    command: "php artisan serve --host=0.0.0.0"
+    volumes:
+      - ./API:/var/www
+    ports:
+      - 8080:8000
+  db:
+    container_name: goodmeal_mysql
+    platform: linux/x86_64
+    image: mysql:8.0.26
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}' # TODO: Change this
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: 'goodmeal'
+    volumes:
+      - ./DB:/var/lib/mysql
+    expose:
+      - 3306
+  fontend:
+    platform: linux/x86_64
+    container_name: goodmeal_frontend
+    build:
+      context: ./config/frontend
+      dockerfile: Dockerfile
+    volumes:
+      - './front:/app'
+    ports:
+      - '8081:5173'
+    # command: npm install && npm run serve
