@@ -18,7 +18,9 @@ const routes = [{
     },
     {
         path: '/tienda/:id',
+        name: 'tiendaDetalle',
         component: () => import(/* webpackChunkName: "TiendaPage" */ '@/modules/tienda/pages/TiendaDetalle.vue'),
+        
         props: (route) => {
 
             const { id } = route.params
