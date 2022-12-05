@@ -3,7 +3,7 @@ services:
   backend:
     container_name: goodmeal_backend
     build:
-      context: ./config/backend
+      context: ./API
       dockerfile: Dockerfile
     volumes:
       - ./API:/var/www
@@ -15,10 +15,10 @@ services:
     image: mysql:8.0.26
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}' # TODO: Change this
-      MYSQL_USER: '${DB_USER}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_DATABASE: 'goodmeal'
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}" # TODO: Change this
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "goodmeal"
     volumes:
       - ./DB:/var/lib/mysql
     expose:
@@ -32,13 +32,13 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - './front:/app/'
+      - "./front:/app/"
     ports:
-      - '8080:5173'
+      - "8080:5173"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
       - "8100:80"
     links:
-      - db    
+      - db

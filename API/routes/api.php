@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProductosController;
 use App\Http\Controllers\Api\TiendaController;
 use App\Models\Tienda;
 use Illuminate\Http\Request;
@@ -21,4 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('tiendas', TiendaController::class);
-Route::get('/tiendas/{id}', [TiendaController::class, 'get']);
+Route::get('/tienda/{id}', [TiendaController::class, 'get']);
+
+Route::apiResource('productos', ProductosController::class);
+Route::get('/producto/{id}', [ProductosController::class, 'get']);

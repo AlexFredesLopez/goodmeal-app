@@ -17,9 +17,13 @@ class Tienda extends Model
     ];
 
 
-    public function products()
-    {
+    protected $table = "tiendas";
 
-        $this->hasMany(Producto::class);
+    protected $primary_key = "id";
+
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class);
     }
 }

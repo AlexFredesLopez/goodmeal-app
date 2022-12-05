@@ -11,15 +11,15 @@ class Producto extends Model
 
     protected $fillable = [
         "producto_nombre",
-        "producto_slug",
         "producto_descripcion",
+        "producto_slug",
         "producto_precio",
         "producto_stock",
         "tienda_id"
     ];
 
-
+    protected $table = "productos";
     public function tienda(){
-        $this->belongsTo(Tienda::class);
+        return $this->belongsTo(Tienda::class);
     }
 }

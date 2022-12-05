@@ -10,14 +10,14 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *      title="My First API",
+ *      title="Goodemal Test API",
  *      version="0.1",
  *      contact="Alex Fredes",
  *
  * )
  *
  * @OA\Server (
- *  url="http://localhost:8080",
+ *  url="http://localhost:8081",
  * description="Api rest para el test de goodmeal"
  *
  * )

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TiendaResource;
 use App\Models\Tienda;
 use Illuminate\Http\Request;
 
@@ -39,11 +40,7 @@ class TiendaController extends Controller
             ], 500);
         }
 
-
-        return response()->json([
-            "tiendas" => $tiendas,
-            "status" => true
-        ], 200);
+        return TiendaResource::collection($tiendas);
     }
 
     /**
@@ -127,49 +124,19 @@ class TiendaController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "Tienda creada correctamente",
-            'tienda' => $tienda
+            'message' => "Tienda creada correctamente"
         ], 200);
     }
 
 
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  \App\Models\Tienda  $tienda
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show(Tienda $tienda)
-    // {
-    //     //
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tienda $tienda)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tienda  $tienda
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tienda $tienda)
-    {
-        //
-    }
-
-   /**
-     * @OA\Delete (
+     * @OA\Put (
      *     path="/api/tiendas/{id}",
      *     @OA\Parameter(
      *         in="path",
@@ -218,28 +185,81 @@ class TiendaController extends Controller
      *     )
      * )
      */
-    public function destroy($id)
+    public function update($id, Request $request)
     {
+        try {
 
-        $tienda = Tienda::where("id", $id);
-        if($tienda->get() === null){
+            $tienda = Tienda::find($id);
+            $request = $request->all();
+            $tienda->nombre = $request['nombre'];
+            $tienda->direccion = $request['direccion'];
+            $tienda->telefono = $request['telefono'];
+            $tienda->horario_retiro = $request['horario_retiro'];
+
+            $tienda->save();
+
 
             return response()->json([
+                'status' => true,
+                "msg" => "Tienda editada correctamente"
+            ]);
+        } catch (\Exception $th) {
+            return response()->json([
+                'status' => false,
+                "msg" => $th->getMessage()
+            ]);
+        }
+    }
+
+     /**
+     * @OA\Delete (
+     *     path="/api/tiendas/{id}",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="msg", type="string", example="Tienda eliminada correctamente")
+     *         )
+     *     )
+     * )
+     */
+    public function destroy($id)
+    {
+        try {
+
+            $tienda = Tienda::where("id", $id)->first();
+
+            if ($tienda === null) {
+                throw new \Exception('Tienda no existe');
+            }
+            if ($tienda->delete()) {
+                throw new \Exception("Tienda tiene productos asociados");
+            }
+            return response()->json([
+                "status" => true,
+                "msg" => "La tienda  ha sido eliminada correctamente"
+            ], 200);
+        } catch (\Throwable $th) {
+
+            $msg = $th->getMessage();
+            if ($th->getCode() == 23000) {
+                $msg = "Tienda tiene productos asociados";
+            }
+            return response()->json([
                 "status" => false,
-                "msg" => "La tienda que indicas no existe"
+                "msg" => $msg
             ], 500);
         }
-
-        $tienda->delete();
-
-        return response()->json([
-            "status" => true,
-            "msg" => "La tienda  ha sido eliminada correctamente"
-        ], 200);
     }
 
 
- /**
+    /**
      *
      * @OA\Get (
      *     path="/api/tiendas/{id}",
@@ -247,7 +267,7 @@ class TiendaController extends Controller
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(type="string")
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -264,16 +284,19 @@ class TiendaController extends Controller
      *     )
      * )
      */
-    public function show($id){
-        $tienda = Tienda::where("id" , $id)->get();
-        if($tienda === null){
+    public function show($id)
+    {
+        $tienda = Tienda::where("id", $id)->get();
+
+
+        if ($tienda === null) {
             return response()->json([
                 "msg" => "Error al obtener la tienda",
                 "status" => "false"
             ]);
         }
         return response()->json([
-            "tienda" => $tienda,
+            "tienda" => TiendaResource::collection($tienda),
             "status" => true
         ]);
     }
