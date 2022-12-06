@@ -18,7 +18,7 @@ A continuación se detalla las URL de los servicios
 
 | Plugin | README |
 | ------ | ------ |
-| API | http://localhost:8181 |
+| API | http://localhost:8081 |
 | Web | http://localhost:8080 |
 | Phpmyadmin  | http://localhost:8100 |
 
