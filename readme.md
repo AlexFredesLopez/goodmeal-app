@@ -7,6 +7,7 @@ Dentro del proyecto existe un archivo llamado `open-api.yml`. Este archivo es la
 
 El proyecto tiene un archivo `docker-compose.yml`. Debes tener instalado docker en tu equipo.
 
+
 Comandos
 
 ```sh
@@ -29,3 +30,6 @@ Para que la aplicación de la `API` funcione correctamente, se debe copiar el ar
 Las credenciales se encuentran en la raíz del proyecto en un archivo `.env`
 
 La DB se encuentra en un archivo persistente dentro del proyecto
+
+# Importante
+La compilación del proyecto puede demorar dependiendo de la máquina
